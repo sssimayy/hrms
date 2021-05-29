@@ -1,7 +1,7 @@
 package com.hrms.controllers;
 
 import com.hrms.business.abstracts.JobPositionService;
-import com.hrms.entities.conretes.JobPosition;
+import com.hrms.entities.concretes.JobPosition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

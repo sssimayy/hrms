@@ -1,8 +1,8 @@
-package com.hrms.business.conretes;
+package com.hrms.business.concretes;
 
 import com.hrms.business.abstracts.JobPositionService;
 import com.hrms.dataAccess.abstracts.JobPositionDao;
-import com.hrms.entities.conretes.JobPosition;
+import com.hrms.entities.concretes.JobPosition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
