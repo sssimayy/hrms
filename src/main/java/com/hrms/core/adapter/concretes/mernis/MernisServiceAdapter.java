@@ -23,8 +23,9 @@ public class MernisServiceAdapter implements MernisService {
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(candidate.getBirthDate());
             int year = calendar.get(Calendar.YEAR);
-            if (cfdkpsPublicSoap.TCKimlikNoDogrula(Long.parseLong(candidate.getNationalIdentity()),
-                    candidate.getName(), candidate.getSurname(), year)) {
+            boolean verifyNationalIdentity =cfdkpsPublicSoap.TCKimlikNoDogrula(Long.parseLong(candidate.getNationalIdentity()),
+                    candidate.getName(), candidate.getSurname(), year);
+            if (verifyNationalIdentity) {
                 return new SuccessResult();
             }
         } catch (Exception e) {

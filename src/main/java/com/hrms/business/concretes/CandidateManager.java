@@ -56,7 +56,7 @@ public class CandidateManager implements CandidateService {
             candidateDao.saveAndFlush(candidate);
 
             String emailMessage = emailVerificationService.sendEmailVerificationCode();
-            return new SuccessDataResult<Candidate>(candidate, emailMessage);
+            return new SuccessDataResult<>(candidate, emailMessage);
         }
         return new ErrorDataResult<>(candidate, result.getMessage());
     }
