@@ -1,6 +1,9 @@
 package com.hrms.business.concretes;
 
 import com.hrms.business.abstracts.JobPositionService;
+import com.hrms.core.utilities.results.DataResult;
+import com.hrms.core.utilities.results.ErrorDataResult;
+import com.hrms.core.utilities.results.SuccessDataResult;
 import com.hrms.dataAccess.abstracts.JobPositionDao;
 import com.hrms.entities.concretes.JobPosition;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +22,18 @@ public class JobPositionManager implements JobPositionService {
     }
 
     @Override
-    public List<JobPosition> getAllJobPositios() {
-        return this.jobPositionDao.findAll();
+    public DataResult<JobPosition> addJobPosition(JobPosition jobPosition) {
+        if (jobPositionDao.existsByTitle(jobPosition.getTitle())) {
+            return new ErrorDataResult<>("This job already exist.");
+        }
+        return new SuccessDataResult<>(
+                jobPositionDao.saveAndFlush(jobPosition),
+                "Data saved successfully."
+        );
+    }
+
+    @Override
+    public DataResult<List<JobPosition>> getAllJobPositios() {
+        return new SuccessDataResult<>(this.jobPositionDao.findAll(), "Data listed successfully");
     }
 }
