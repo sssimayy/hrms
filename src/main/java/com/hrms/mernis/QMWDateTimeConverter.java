@@ -1,4 +1,4 @@
-package com.hrms.externalServices.mernis;
+package com.hrms.mernis;
 
 //----------------------------------------------------
 //
@@ -12,7 +12,7 @@ package com.hrms.externalServices.mernis;
 import java.util.Date;
 
 
-public interface CFDDateTimeConverter
+public interface QMWDateTimeConverter
 {
     java.util.Date convertDateTime(String strDate);
     java.util.Date convertTime(String strDate);

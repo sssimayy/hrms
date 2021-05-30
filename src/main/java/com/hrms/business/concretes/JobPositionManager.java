@@ -23,7 +23,7 @@ public class JobPositionManager implements JobPositionService {
 
     @Override
     public DataResult<JobPosition> addJobPosition(JobPosition jobPosition) {
-        if (jobPositionDao.existsByTitle(jobPosition.getTitle())) {
+        if (getJobByTitle(jobPosition.getTitle()).getData()!=null) {
             return new ErrorDataResult<>("This job already exist.");
         }
         return new SuccessDataResult<>(
@@ -35,5 +35,10 @@ public class JobPositionManager implements JobPositionService {
     @Override
     public DataResult<List<JobPosition>> getAllJobPositios() {
         return new SuccessDataResult<>(this.jobPositionDao.findAll(), "Data listed successfully");
+    }
+
+    @Override
+    public DataResult<JobPosition> getJobByTitle(String title) {
+        return new SuccessDataResult<JobPosition>(this.jobPositionDao.existsByTitle(title));
     }
 }

@@ -1,4 +1,4 @@
-package com.hrms.externalServices.mernis;
+package com.hrms.mernis;
 
 //----------------------------------------------------
 //
@@ -22,13 +22,13 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class CFDKPSPublicSoap12
+public class QMWKPSPublicSoap12
 {
-    interface CFDIWcfMethod
+    interface QMWIWcfMethod
     {
-        CFDExtendedSoapSerializationEnvelope CreateSoapEnvelope() throws java.lang.Exception;
+        QMWExtendedSoapSerializationEnvelope CreateSoapEnvelope() throws java.lang.Exception;
 
-        java.lang.Object ProcessResult(CFDExtendedSoapSerializationEnvelope __envelope,java.lang.Object result) throws java.lang.Exception;
+        java.lang.Object ProcessResult(QMWExtendedSoapSerializationEnvelope __envelope,java.lang.Object result) throws java.lang.Exception;
     }
 
     String url="https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx";
@@ -39,14 +39,14 @@ public class CFDKPSPublicSoap12
     public boolean enableLogging;
 
 
-    public CFDKPSPublicSoap12(){}
+    public QMWKPSPublicSoap12(){}
 
-    public CFDKPSPublicSoap12(String url)
+    public QMWKPSPublicSoap12(String url)
     {
         this.url = url;
     }
 
-    public CFDKPSPublicSoap12(String url,int timeOut)
+    public QMWKPSPublicSoap12(String url,int timeOut)
     {
         this.url = url;
         this.timeOut=timeOut;
@@ -79,15 +79,15 @@ public class CFDKPSPublicSoap12
         return null;
     }
 
-    protected CFDExtendedSoapSerializationEnvelope createEnvelope()
+    protected QMWExtendedSoapSerializationEnvelope createEnvelope()
     {
-        CFDExtendedSoapSerializationEnvelope envelope= new CFDExtendedSoapSerializationEnvelope(CFDExtendedSoapSerializationEnvelope.VER12);
+        QMWExtendedSoapSerializationEnvelope envelope= new QMWExtendedSoapSerializationEnvelope(QMWExtendedSoapSerializationEnvelope.VER12);
         envelope.enableLogging = enableLogging;
     
         return envelope;
     }
 
-    protected java.util.List sendRequest(String methodName,CFDExtendedSoapSerializationEnvelope envelope,org.ksoap2.transport.Transport transport ,com.easywsdl.exksoap2.ws_specifications.profile.WS_Profile profile )throws java.lang.Exception
+    protected java.util.List sendRequest(String methodName,QMWExtendedSoapSerializationEnvelope envelope,org.ksoap2.transport.Transport transport ,com.easywsdl.exksoap2.ws_specifications.profile.WS_Profile profile )throws java.lang.Exception
     {
         if(transport instanceof com.easywsdl.exksoap2.transport.AdvancedHttpTransportSE )
         {
@@ -99,7 +99,7 @@ public class CFDKPSPublicSoap12
         }
     }
 
-    java.lang.Object getResult(java.lang.Class destObj,java.lang.Object source,String resultName,CFDExtendedSoapSerializationEnvelope __envelope) throws java.lang.Exception
+    java.lang.Object getResult(java.lang.Class destObj,java.lang.Object source,String resultName,QMWExtendedSoapSerializationEnvelope __envelope) throws java.lang.Exception
     {
         if(source==null)
         {
@@ -143,11 +143,11 @@ public class CFDKPSPublicSoap12
     public Boolean TCKimlikNoDogrula(final Long TCKimlikNo,final String Ad,final String Soyad,final Integer DogumYili) throws java.lang.Exception
     {
         com.easywsdl.exksoap2.ws_specifications.profile.WS_Profile __profile = new com.easywsdl.exksoap2.ws_specifications.profile.WS_Profile();
-        return (Boolean)execute(new CFDIWcfMethod()
+        return (Boolean)execute(new QMWIWcfMethod()
         {
             @Override
-            public CFDExtendedSoapSerializationEnvelope CreateSoapEnvelope(){
-                CFDExtendedSoapSerializationEnvelope __envelope = createEnvelope();
+            public QMWExtendedSoapSerializationEnvelope CreateSoapEnvelope(){
+                QMWExtendedSoapSerializationEnvelope __envelope = createEnvelope();
                 SoapObject __soapReq = new SoapObject("http://tckimlik.nvi.gov.tr/WS", "TCKimlikNoDogrula");
                 __envelope.setOutputSoapObject(__soapReq);
                 
@@ -180,7 +180,7 @@ public class CFDKPSPublicSoap12
             }
             
             @Override
-            public java.lang.Object ProcessResult(CFDExtendedSoapSerializationEnvelope __envelope,java.lang.Object __result)throws java.lang.Exception {
+            public java.lang.Object ProcessResult(QMWExtendedSoapSerializationEnvelope __envelope,java.lang.Object __result)throws java.lang.Exception {
                 SoapObject __soap=(SoapObject)__result;
                 java.lang.Object obj = __soap.getProperty("TCKimlikNoDogrulaResult");
                 if (obj instanceof SoapPrimitive)
@@ -196,11 +196,11 @@ public class CFDKPSPublicSoap12
         },"http://tckimlik.nvi.gov.tr/WS/TCKimlikNoDogrula",__profile);
     }
 
-    protected java.lang.Object execute(CFDIWcfMethod wcfMethod,String methodName,com.easywsdl.exksoap2.ws_specifications.profile.WS_Profile profile) throws java.lang.Exception
+    protected java.lang.Object execute(QMWIWcfMethod wcfMethod,String methodName,com.easywsdl.exksoap2.ws_specifications.profile.WS_Profile profile) throws java.lang.Exception
     {
         org.ksoap2.transport.Transport __httpTransport=createTransport();
         __httpTransport.debug=enableLogging;
-        CFDExtendedSoapSerializationEnvelope __envelope=wcfMethod.CreateSoapEnvelope();
+        QMWExtendedSoapSerializationEnvelope __envelope=wcfMethod.CreateSoapEnvelope();
         try
         {
             sendRequest(methodName, __envelope, __httpTransport,profile);
@@ -226,7 +226,7 @@ public class CFDKPSPublicSoap12
     }
 
 
-    protected java.lang.Exception convertToException(org.ksoap2.SoapFault fault,CFDExtendedSoapSerializationEnvelope envelope)
+    protected java.lang.Exception convertToException(org.ksoap2.SoapFault fault,QMWExtendedSoapSerializationEnvelope envelope)
     {
         org.ksoap2.SoapFault newException = fault;
         return newException;

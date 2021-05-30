@@ -1,4 +1,4 @@
-package com.hrms.externalServices.mernis;
+package com.hrms.mernis;
 
 //----------------------------------------------------
 //
@@ -15,7 +15,7 @@ import org.kxml2.kdom.Element;
 import org.kxml2.kdom.Node;
 
 
-public class CFDHelper
+public class QMWHelper
 {
     public static < T, E> T getKeyByValue(java.util.Map< T, E> map, E value) {
         for (java.util.Map.Entry< T, E> entry : map.entrySet()) {
@@ -68,7 +68,7 @@ public class CFDHelper
             if (obj instanceof java.util.Date)
             {
                 java.util.Date date = (java.util.Date) obj;
-                value = CFDExtendedSoapSerializationEnvelope.getDateTimeConverter().getStringFromDateTime(date);
+                value = QMWExtendedSoapSerializationEnvelope.getDateTimeConverter().getStringFromDateTime(date);
             }
             parentElement.addChild(org.kxml2.kdom.Node.TEXT,value);
         }

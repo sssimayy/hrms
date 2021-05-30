@@ -1,4 +1,4 @@
-package com.hrms.externalServices.mernis;
+package com.hrms.mernis;
 
 //----------------------------------------------------
 //
@@ -15,7 +15,7 @@ import java.util.Locale;
 
 
 
-public class CFDStandardDateTimeConverter implements CFDDateTimeConverter
+public class QMWStandardDateTimeConverter implements QMWDateTimeConverter
 {
     public java.util.TimeZone TimeZone=java.util.TimeZone.getTimeZone("UTC");
 

@@ -4,12 +4,12 @@
     <Version>5.11.5.0</Version>
     <AccountType>Basic</AccountType>
     <LibrariesFolder>easywsdl</LibrariesFolder>
-    <MainClass>CFDKPSPublicSoap</MainClass>
+    <MainClass>QMWKPSPublicSoap</MainClass>
   </Info>
   <Settings>
     <Url>https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx?WSDL</Url>
     <ClassPrefix/>
-    <PackageName>com.hrms.externalServices.mernis</PackageName>
+    <PackageName>com.hrms.mernis</PackageName>
     <AddDocumentation>false</AddDocumentation>
     <EnableAdvancedFeatures>true</EnableAdvancedFeatures>
     <EnableMTOM>false</EnableMTOM>
@@ -29,13 +29,13 @@
     <DetectDictionaries>false</DetectDictionaries>
   </Settings>
   <Files>
-    <File>CFDDateTimeConverter.java</File>
-    <File>CFDExtendedSoapSerializationEnvelope.java</File>
-    <File>CFDHelper.java</File>
-    <File>CFDKPSPublicSoap.java</File>
-    <File>CFDKPSPublicSoap12.java</File>
-    <File>CFDMarshalGuid.java</File>
-    <File>CFDStandardDateTimeConverter.java</File>
+    <File>QMWDateTimeConverter.java</File>
+    <File>QMWExtendedSoapSerializationEnvelope.java</File>
+    <File>QMWHelper.java</File>
+    <File>QMWKPSPublicSoap.java</File>
+    <File>QMWKPSPublicSoap12.java</File>
+    <File>QMWMarshalGuid.java</File>
+    <File>QMWStandardDateTimeConverter.java</File>
   </Files>
   <Libraries>
     <File>ExKsoap2-1.0.3.1.jar</File>

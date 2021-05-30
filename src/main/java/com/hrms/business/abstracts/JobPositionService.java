@@ -11,4 +11,6 @@ public interface JobPositionService {
 
     DataResult<List<JobPosition>> getAllJobPositios();
 
+    DataResult<JobPosition> getJobByTitle(String title);
+
 }

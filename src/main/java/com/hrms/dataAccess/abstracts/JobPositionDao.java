@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface JobPositionDao extends JpaRepository<JobPosition, Long> {
 
-    boolean existsByTitle(String title);
+    JobPosition existsByTitle(String title);
 
 }

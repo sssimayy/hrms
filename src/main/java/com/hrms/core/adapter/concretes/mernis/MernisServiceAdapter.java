@@ -5,7 +5,8 @@ import com.hrms.core.utilities.results.ErrorResult;
 import com.hrms.core.utilities.results.Result;
 import com.hrms.core.utilities.results.SuccessResult;
 import com.hrms.entities.concretes.Candidate;
-import com.hrms.externalServices.mernis.CFDKPSPublicSoap;
+
+import com.hrms.mernis.QMWKPSPublicSoap;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -14,7 +15,7 @@ import java.util.GregorianCalendar;
 @Service
 public class MernisServiceAdapter implements MernisService {
 
-    CFDKPSPublicSoap cfdkpsPublicSoap = new CFDKPSPublicSoap();
+    QMWKPSPublicSoap cfdkpsPublicSoap = new QMWKPSPublicSoap();
 
     @Override
     public Result checkForPersonelInformation(Candidate candidate) {
