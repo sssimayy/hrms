@@ -20,31 +20,37 @@ public class JobAdvertController {
     }
 
     @PostMapping("/add")
-    public Result add(@RequestBody JobAdvert jobAdvert){
+    public Result add(@RequestBody JobAdvert jobAdvert) {
         return this.jobAdvertService.add(jobAdvert);
     }
-    @GetMapping("/getAll")
-    public DataResult<List<JobAdvert>> getAll(){
+
+    @GetMapping("/gellAllAdverts")
+    public DataResult<List<JobAdvert>> getAll() {
         return this.jobAdvertService.getAll();
     }
 
+    @GetMapping("/getAllActiveAdverts")
+    public DataResult<List<JobAdvert>> getAllActive() {
+        return this.jobAdvertService.getAllActiveAdvert();
+    }
+
     @PostMapping("/changeOpenToClose")
-    public Result changeOpenToClose(int id){
+    public Result changeOpenToClose(int id) {
         return this.jobAdvertService.changeOpenToClose(id);
     }
 
-    @GetMapping("/getAllOpenJobAdvertList")
-    public DataResult<List<JobAdvert>> getAllOpenJobAdvertList(){
-        return this.jobAdvertService.getAllOpenJobAdvertList();
+    @GetMapping("/getAllByOrderByPublishedAtDesc")
+    public DataResult<List<JobAdvert>> findAllByOrderByPublishedAtDesc() {
+        return this.jobAdvertService.findAllByOrderByPublishedAtDesc();
     }
 
-    @GetMapping("/findAllByOrderByPublishedAt")
-    public DataResult<List<JobAdvert>> findAllByOrderByPublishedAt(){
-        return this.jobAdvertService.findAllByOrderByPublishedAt();
+    @GetMapping("/getAllActiveAdvertsOfFirm")
+    public DataResult<List<JobAdvert>> getAllActiveAdvertsOfFirm(@RequestParam String companyName) {
+        return this.jobAdvertService.getAllActiveAdvertsOfFirm(companyName);
     }
 
-    @GetMapping("/getAllOpenJobAdvertByEmployer")
-    public DataResult<List<JobAdvert>> getAllOpenJobAdvertByEmployer(int id){
-        return this.jobAdvertService.getAllOpenJobAdvertByEmployer(id);
+    @GetMapping("/getEmployerJobAdvertisement")
+    public DataResult<List<JobAdvert>> findAllByIsActiveAndCompanyName(int id) {
+        return this.jobAdvertService.findAllByIsActiveAndCompanyName(id);
     }
 }
