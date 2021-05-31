@@ -6,13 +6,15 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface JobAdvertDao extends JpaRepository<JobAdvert,Integer> {
-    @Query("From JobAdvert where isOpen = true")
-    List<JobAdvert> getAllOpenJobAdvertList();
+public interface JobAdvertDao extends JpaRepository<JobAdvert, Integer> {
 
-    @Query("From JobAdvert where isOpen = true Order By publishedAt Desc")
-    List<JobAdvert> findAllByOrderByPublishedAtDesc();
+    List<JobAdvert> findAllByIsActive(boolean isActive);
 
-    @Query("From JobAdvert where isOpen = true and employer_id =:id")
-    List<JobAdvert> getAllOpenJobAdvertByEmployer(int id);
+    List<JobAdvert> findAllByIsActiveOrderByPublishedAtDesc(boolean isActive);
+
+    List<JobAdvert> findAllByCompanyName(String companyName);
+
+    @Query("From JobAdvert where isActive=true and candidate_id=:id")
+    List<JobAdvert> getEmployersActiveAdvert(int id);
+
 }
