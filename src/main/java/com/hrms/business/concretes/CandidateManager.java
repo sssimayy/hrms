@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Service
 public class CandidateManager implements CandidateService {
@@ -49,6 +50,10 @@ public class CandidateManager implements CandidateService {
                 confirmPasswordCheck.check(candidate),
                 mernisService.checkForPersonelInformation(candidate)));
 
+        if(!isValid(candidate.getEmail())){
+            return new ErrorDataResult<>(candidate, "Email is not valid format");
+        }
+
         if (result.isSuccess()) {
             String emailVerificationCode = RandomString.make(64);
             candidate.setVerificationCode(emailVerificationCode);
@@ -64,5 +69,17 @@ public class CandidateManager implements CandidateService {
     @Override
     public DataResult<List<Candidate>> getAll() {
         return new SuccessDataResult<>(candidateDao.findAll(), "Data listed successfully");
+    }
+    public static boolean isValid(String email)
+    {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
     }
 }

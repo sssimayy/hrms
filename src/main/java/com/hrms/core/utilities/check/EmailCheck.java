@@ -8,6 +8,8 @@ import com.hrms.entities.concretes.Candidate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.regex.Pattern;
+
 @Component
 public class EmailCheck implements Check {
 
@@ -25,4 +27,6 @@ public class EmailCheck implements Check {
         }
         return new SuccessResult();
     }
+
+
 }

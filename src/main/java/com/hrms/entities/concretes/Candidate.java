@@ -42,4 +42,8 @@ public class Candidate extends User {
 
     @Column(name = "verification_code", updatable = false)
     private String verificationCode;
+
+    @OneToOne
+    @JoinColumn(name = "candidate_id")
+    private Cv cv;
 }
