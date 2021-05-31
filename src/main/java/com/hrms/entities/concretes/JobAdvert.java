@@ -5,12 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "job_advert")
 public class JobAdvert {
     @Id
@@ -18,15 +20,24 @@ public class JobAdvert {
     @Column(name = "id")
     private int id;
 
+    @Size(min = 3, max = 50, message = "Description length should be between 3 and 50.")
     @Column(name = "description")
     private String description;
 
+    @Size(min = 3, max = 50, message = "Company name length should be between 3 and 50.")
+    @NotBlank(message = "Company name cannot be empty.")
+    @Column(name = "company_name")
+    private String companyName;
+
+    @NotBlank(message = "Min salary cannot be empty.")
     @Column(name = "salary_min")
     private int salaryMin;
 
     @Column(name = "salary_max")
+    @NotBlank(message = "Max salary cannot be empty.")
     private int salaryMax;
 
+    @Size(min = 3, max = 50, message = "Position length should be between 3 and 50.")
     @Column(name = "open_position_count")
     private int openPositionCount;
 
@@ -59,4 +70,5 @@ public class JobAdvert {
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
+
 }

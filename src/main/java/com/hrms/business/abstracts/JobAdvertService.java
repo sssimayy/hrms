@@ -8,11 +8,20 @@ import java.util.List;
 
 public interface JobAdvertService {
     Result add(JobAdvert jobAdvert);
+
     Result update(JobAdvert jobAdvert);
-    DataResult<JobAdvert> getById(int id);
-    Result changeOpenToClose(int id);
+
     DataResult<List<JobAdvert>> getAll();
-    DataResult<List<JobAdvert>> getAllOpenJobAdvertList();
-    DataResult<List<JobAdvert>> findAllByOrderByPublishedAt();
-    DataResult<List<JobAdvert>> getAllOpenJobAdvertByEmployer(int id);
+
+    DataResult<JobAdvert> getById(int id);
+
+    Result changeOpenToClose(int id);
+
+    DataResult<List<JobAdvert>> getAllActiveAdvert();
+
+    DataResult<List<JobAdvert>> findAllByOrderByPublishedAtDesc();
+
+    DataResult<List<JobAdvert>> getAllActiveAdvertsOfFirm(String companyName);
+
+    DataResult<List<JobAdvert>> findAllByIsActiveAndCompanyName(int id);
 }

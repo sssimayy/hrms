@@ -34,44 +34,51 @@ public class JobAdvertManager implements JobAdvertService {
     }
 
     @Override
-    public DataResult<JobAdvert> getById(int id) {
-        return null;
-    }
-
-    @Override
-    public Result changeOpenToClose(int id) {
-        if (getById(id) == null) {
-            return new ErrorResult("There is no such job advert");
-
-        }
-        if (getById(id).getData().isOpen() == false) {
-            return new ErrorResult("There job advert is already closed.");
-        }
-
-        JobAdvert jobAdvert = getById(id).getData();
-        jobAdvert.setOpen(false);
-        update(jobAdvert);
-        return new SuccessResult("Job advert has been successfully closed.");
-    }
-
-    @Override
     public DataResult<List<JobAdvert>> getAll() {
         return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAll());
     }
 
     @Override
-    public DataResult<List<JobAdvert>> getAllOpenJobAdvertList() {
-        return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getAllOpenJobAdvertList());
+    public DataResult<JobAdvert> getById(int id) {
+        return null;
     }
 
     @Override
-    public DataResult<List<JobAdvert>> findAllByOrderByPublishedAt() {
-        return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAllByOrderByPublishedAtDesc());
+    public DataResult<JobAdvert> changeOpenToClose(int id) {
+        if (!this.jobAdvertDao.existsById(id)) {
+            return new ErrorDataResult<JobAdvert>("There is no such job advert");
+
+        }
+
+        JobAdvert jobAdvert = this.jobAdvertDao.getOne(id);
+        jobAdvert.setOpen(false);
+
+        return new SuccessDataResult<JobAdvert>(this.jobAdvertDao.save(jobAdvert), "Job advert has been successfully closed.");
     }
 
     @Override
-    public DataResult<List<JobAdvert>> getAllOpenJobAdvertByEmployer(int id) {
-        return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getAllOpenJobAdvertByEmployer(id));
+    public DataResult<List<JobAdvert>> getAllActiveAdvert() {
+        return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAllByIsActive(true), "All open adverts are listed");
+    }
+
+
+    @Override
+    public DataResult<List<JobAdvert>> findAllByOrderByPublishedAtDesc() {
+        return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAllByIsActiveOrderByPublishedAtDesc(true), "All adverts are listed according to published at");
+    }
+
+    @Override
+    public DataResult<List<JobAdvert>> getAllActiveAdvertsOfFirm(String companyName) {
+        return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAllByCompanyName(companyName), "All open adverts are listed");
+    }
+
+    @Override
+    public DataResult<List<JobAdvert>> findAllByIsActiveAndCompanyName(int id) {
+        if (!this.jobAdvertDao.existsById(id)) {
+            return new ErrorDataResult<List<JobAdvert>>("İş veren bulunamadı");
+        } else {
+            return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getEmployersActiveAdvert(id), "Başarılı");
+        }
     }
 
     private boolean checkNullArea(JobAdvert jobAdvert) {
