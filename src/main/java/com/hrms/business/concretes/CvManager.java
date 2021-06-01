@@ -2,6 +2,7 @@ package com.hrms.business.concretes;
 
 import com.hrms.business.abstracts.CvService;
 import com.hrms.core.utilities.results.*;
+import com.hrms.dataAccess.abstracts.CandidateDao;
 import com.hrms.dataAccess.abstracts.CvDao;
 import com.hrms.entities.concretes.Cv;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,16 @@ import java.util.List;
 public class CvManager implements CvService {
 
     private CvDao cvDao;
+    private CandidateDao candidateDao;
 
     @Autowired
-    public CvManager(CvDao cvDao) {
+    public CvManager(CvDao cvDao, CandidateDao candidateDao) {
         this.cvDao = cvDao;
+        this.candidateDao = candidateDao;
     }
+
+
+
 
     @Override
     public Result add(Cv cv) {
@@ -41,12 +47,13 @@ public class CvManager implements CvService {
         return new SuccessDataResult<List<Cv>>(this.cvDao.findAllByUniversityNameOrderByGradDateDesc(universityName));
     }
 
+
     @Override
-    public DataResult<List<Cv>> getAllCandidatesCv(int id) {
-        if (!this.cvDao.existsById(id)) {
-            return new ErrorDataResult<List<Cv>>("Cv does not exist");
-        } else {
-            return new SuccessDataResult<List<Cv>>(this.cvDao.getCvInfoOfCandidate(id));
+    public DataResult<List<Cv>> getAllCandidatesCv(String name) {
+//        if (!this.cvDao.existsByName(name)) {
+//            return new ErrorDataResult<List<Cv>>("Cv does not exist");
+//        } else {
+            return new SuccessDataResult<List<Cv>>(this.candidateDao.findAllByName(name));
         }
-    }
+
 }

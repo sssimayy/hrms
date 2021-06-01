@@ -12,7 +12,7 @@ package com.hrms.mernis;
 import java.util.Date;
 
 
-public interface QMWDateTimeConverter
+public interface MHTDateTimeConverter
 {
     java.util.Date convertDateTime(String strDate);
     java.util.Date convertTime(String strDate);

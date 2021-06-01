@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class CityManager implements CityService {
 
-    CityDao cityDao;
+    private CityDao cityDao;
 
     @Autowired
     public CityManager(CityDao cityDao) {

@@ -24,6 +24,10 @@ public class JobAdvertManager implements JobAdvertService {
         if (!checkNullArea(jobAdvert)) {
             return new ErrorResult("You have entered missing information. Please fill in all fields.");
         }
+        if (!salaryCheck(jobAdvert)){
+            return new ErrorResult("Min salary can not much than max salary.");
+
+        }
         this.jobAdvertDao.save(jobAdvert);
         return new SuccessResult("Job advert has been added.");
     }
@@ -61,7 +65,6 @@ public class JobAdvertManager implements JobAdvertService {
         return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAllByIsActive(true), "All open adverts are listed");
     }
 
-
     @Override
     public DataResult<List<JobAdvert>> findAllByOrderByPublishedAtDesc() {
         return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAllByIsActiveOrderByPublishedAtDesc(true), "All adverts are listed according to published at");
@@ -86,6 +89,13 @@ public class JobAdvertManager implements JobAdvertService {
             return true;
         }
         return false;
+    }
+
+    private boolean salaryCheck(JobAdvert jobAdvert) {
+        if (jobAdvert.getSalaryMin() > jobAdvert.getSalaryMax()) {
+            return false;
+        } else
+            return true;
     }
 }
 

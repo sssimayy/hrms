@@ -43,5 +43,4 @@ public class Cv {
     @OneToOne(mappedBy = "cv")
     private Candidate candidate;
 
-
 }

@@ -22,13 +22,13 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class QMWKPSPublicSoap
+public class MHTKPSPublicSoap12
 {
-    interface QMWIWcfMethod
+    interface MHTIWcfMethod
     {
-        QMWExtendedSoapSerializationEnvelope CreateSoapEnvelope() throws java.lang.Exception;
+        MHTExtendedSoapSerializationEnvelope CreateSoapEnvelope() throws java.lang.Exception;
 
-        java.lang.Object ProcessResult(QMWExtendedSoapSerializationEnvelope __envelope,java.lang.Object result) throws java.lang.Exception;
+        java.lang.Object ProcessResult(MHTExtendedSoapSerializationEnvelope __envelope,java.lang.Object result) throws java.lang.Exception;
     }
 
     String url="https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx";
@@ -39,14 +39,14 @@ public class QMWKPSPublicSoap
     public boolean enableLogging;
 
 
-    public QMWKPSPublicSoap(){}
+    public MHTKPSPublicSoap12(){}
 
-    public QMWKPSPublicSoap(String url)
+    public MHTKPSPublicSoap12(String url)
     {
         this.url = url;
     }
 
-    public QMWKPSPublicSoap(String url,int timeOut)
+    public MHTKPSPublicSoap12(String url,int timeOut)
     {
         this.url = url;
         this.timeOut=timeOut;
@@ -79,15 +79,15 @@ public class QMWKPSPublicSoap
         return null;
     }
 
-    protected QMWExtendedSoapSerializationEnvelope createEnvelope()
+    protected MHTExtendedSoapSerializationEnvelope createEnvelope()
     {
-        QMWExtendedSoapSerializationEnvelope envelope= new QMWExtendedSoapSerializationEnvelope(QMWExtendedSoapSerializationEnvelope.VER11);
+        MHTExtendedSoapSerializationEnvelope envelope= new MHTExtendedSoapSerializationEnvelope(MHTExtendedSoapSerializationEnvelope.VER12);
         envelope.enableLogging = enableLogging;
     
         return envelope;
     }
 
-    protected java.util.List sendRequest(String methodName,QMWExtendedSoapSerializationEnvelope envelope,org.ksoap2.transport.Transport transport ,com.easywsdl.exksoap2.ws_specifications.profile.WS_Profile profile )throws java.lang.Exception
+    protected java.util.List sendRequest(String methodName,MHTExtendedSoapSerializationEnvelope envelope,org.ksoap2.transport.Transport transport ,com.easywsdl.exksoap2.ws_specifications.profile.WS_Profile profile )throws java.lang.Exception
     {
         if(transport instanceof com.easywsdl.exksoap2.transport.AdvancedHttpTransportSE )
         {
@@ -99,7 +99,7 @@ public class QMWKPSPublicSoap
         }
     }
 
-    java.lang.Object getResult(java.lang.Class destObj,java.lang.Object source,String resultName,QMWExtendedSoapSerializationEnvelope __envelope) throws java.lang.Exception
+    java.lang.Object getResult(java.lang.Class destObj,java.lang.Object source,String resultName,MHTExtendedSoapSerializationEnvelope __envelope) throws java.lang.Exception
     {
         if(source==null)
         {
@@ -143,11 +143,11 @@ public class QMWKPSPublicSoap
     public Boolean TCKimlikNoDogrula(final Long TCKimlikNo,final String Ad,final String Soyad,final Integer DogumYili) throws java.lang.Exception
     {
         com.easywsdl.exksoap2.ws_specifications.profile.WS_Profile __profile = new com.easywsdl.exksoap2.ws_specifications.profile.WS_Profile();
-        return (Boolean)execute(new QMWIWcfMethod()
+        return (Boolean)execute(new MHTIWcfMethod()
         {
             @Override
-            public QMWExtendedSoapSerializationEnvelope CreateSoapEnvelope(){
-                QMWExtendedSoapSerializationEnvelope __envelope = createEnvelope();
+            public MHTExtendedSoapSerializationEnvelope CreateSoapEnvelope(){
+                MHTExtendedSoapSerializationEnvelope __envelope = createEnvelope();
                 SoapObject __soapReq = new SoapObject("http://tckimlik.nvi.gov.tr/WS", "TCKimlikNoDogrula");
                 __envelope.setOutputSoapObject(__soapReq);
                 
@@ -180,7 +180,7 @@ public class QMWKPSPublicSoap
             }
             
             @Override
-            public java.lang.Object ProcessResult(QMWExtendedSoapSerializationEnvelope __envelope,java.lang.Object __result)throws java.lang.Exception {
+            public java.lang.Object ProcessResult(MHTExtendedSoapSerializationEnvelope __envelope,java.lang.Object __result)throws java.lang.Exception {
                 SoapObject __soap=(SoapObject)__result;
                 java.lang.Object obj = __soap.getProperty("TCKimlikNoDogrulaResult");
                 if (obj instanceof SoapPrimitive)
@@ -196,11 +196,11 @@ public class QMWKPSPublicSoap
         },"http://tckimlik.nvi.gov.tr/WS/TCKimlikNoDogrula",__profile);
     }
 
-    protected java.lang.Object execute(QMWIWcfMethod wcfMethod,String methodName,com.easywsdl.exksoap2.ws_specifications.profile.WS_Profile profile) throws java.lang.Exception
+    protected java.lang.Object execute(MHTIWcfMethod wcfMethod,String methodName,com.easywsdl.exksoap2.ws_specifications.profile.WS_Profile profile) throws java.lang.Exception
     {
         org.ksoap2.transport.Transport __httpTransport=createTransport();
         __httpTransport.debug=enableLogging;
-        QMWExtendedSoapSerializationEnvelope __envelope=wcfMethod.CreateSoapEnvelope();
+        MHTExtendedSoapSerializationEnvelope __envelope=wcfMethod.CreateSoapEnvelope();
         try
         {
             sendRequest(methodName, __envelope, __httpTransport,profile);
@@ -226,7 +226,7 @@ public class QMWKPSPublicSoap
     }
 
 
-    protected java.lang.Exception convertToException(org.ksoap2.SoapFault fault,QMWExtendedSoapSerializationEnvelope envelope)
+    protected java.lang.Exception convertToException(org.ksoap2.SoapFault fault,MHTExtendedSoapSerializationEnvelope envelope)
     {
         org.ksoap2.SoapFault newException = fault;
         return newException;

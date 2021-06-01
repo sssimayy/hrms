@@ -4,7 +4,7 @@
     <Version>5.11.5.0</Version>
     <AccountType>Basic</AccountType>
     <LibrariesFolder>easywsdl</LibrariesFolder>
-    <MainClass>QMWKPSPublicSoap</MainClass>
+    <MainClass>MHTKPSPublicSoap</MainClass>
   </Info>
   <Settings>
     <Url>https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx?WSDL</Url>
@@ -29,13 +29,13 @@
     <DetectDictionaries>false</DetectDictionaries>
   </Settings>
   <Files>
-    <File>QMWDateTimeConverter.java</File>
-    <File>QMWExtendedSoapSerializationEnvelope.java</File>
-    <File>QMWHelper.java</File>
-    <File>QMWKPSPublicSoap.java</File>
-    <File>QMWKPSPublicSoap12.java</File>
-    <File>QMWMarshalGuid.java</File>
-    <File>QMWStandardDateTimeConverter.java</File>
+    <File>MHTDateTimeConverter.java</File>
+    <File>MHTExtendedSoapSerializationEnvelope.java</File>
+    <File>MHTHelper.java</File>
+    <File>MHTKPSPublicSoap.java</File>
+    <File>MHTKPSPublicSoap12.java</File>
+    <File>MHTMarshalGuid.java</File>
+    <File>MHTStandardDateTimeConverter.java</File>
   </Files>
   <Libraries>
     <File>ExKsoap2-1.0.3.1.jar</File>

@@ -28,7 +28,7 @@ import java.io.StringWriter;
 
 
 //If you have a compilation error here then you have to add a reference to ExKsoap2.jar to your project (you can find it in Libs folder in the generated zip file)
-public class QMWExtendedSoapSerializationEnvelope extends com.easywsdl.exksoap2.serialization.ExSoapSerializationEnvelope {
+public class MHTExtendedSoapSerializationEnvelope extends com.easywsdl.exksoap2.serialization.ExSoapSerializationEnvelope {
     static HashMap< java.lang.String,java.lang.Class> classNames = new HashMap< java.lang.String, java.lang.Class>();
     public static String TAG="easyWSDL";
 
@@ -36,31 +36,31 @@ public class QMWExtendedSoapSerializationEnvelope extends com.easywsdl.exksoap2.
     private static final String TYPE_LABEL = "type";
     public boolean enableLogging;
 
-    public static void setDateTimeConverter(QMWDateTimeConverter converter)
+    public static void setDateTimeConverter(MHTDateTimeConverter converter)
     {
         if(converter==null)
         {
-            dateTimeConverter = new QMWStandardDateTimeConverter();
+            dateTimeConverter = new MHTStandardDateTimeConverter();
         }
         dateTimeConverter=converter;
     }
 
-    public static QMWDateTimeConverter getDateTimeConverter()
+    public static MHTDateTimeConverter getDateTimeConverter()
     {
         return dateTimeConverter;
     }
 
-    private static QMWDateTimeConverter dateTimeConverter = new QMWStandardDateTimeConverter();
+    private static MHTDateTimeConverter dateTimeConverter = new MHTStandardDateTimeConverter();
 
-    public QMWExtendedSoapSerializationEnvelope() {
+    public MHTExtendedSoapSerializationEnvelope() {
         this(SoapEnvelope.VER11);
     }
 
-    public QMWExtendedSoapSerializationEnvelope(int soapVersion) {
+    public MHTExtendedSoapSerializationEnvelope(int soapVersion) {
         super(soapVersion);
         implicitTypes = true;
         setAddAdornments(false);
-        new QMWMarshalGuid().register(this);
+        new MHTMarshalGuid().register(this);
         new MarshalFloat().register(this);
     }
 
@@ -81,7 +81,7 @@ public class QMWExtendedSoapSerializationEnvelope extends com.easywsdl.exksoap2.
         if (!type.multiRef && qName[2] == null )
         {
             if (!implicitTypes || (obj.getClass() != type.type && !(obj instanceof Vector ) && type.type!=java.lang.String.class  )) {
-                java.lang.String xmlName=QMWHelper.getKeyByValue(classNames,obj.getClass());
+                java.lang.String xmlName=MHTHelper.getKeyByValue(classNames,obj.getClass());
                 if(xmlName!=null) {
                     java.lang.String[] parts = xmlName.split("\\^\\^");
                     java.lang.String prefix = writer.getPrefix(parts[0], true);
@@ -168,7 +168,7 @@ public class QMWExtendedSoapSerializationEnvelope extends com.easywsdl.exksoap2.
     }
     private Object createObject(Object soap, Class cl) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         Object obj=cl.newInstance();
-        Method ctor = obj.getClass().getMethod("loadFromSoap",Object.class,QMWExtendedSoapSerializationEnvelope.class);
+        Method ctor = obj.getClass().getMethod("loadFromSoap",Object.class,MHTExtendedSoapSerializationEnvelope.class);
         ctor.invoke(obj,soap,this);
         return obj;
     }
@@ -287,7 +287,7 @@ public class QMWExtendedSoapSerializationEnvelope extends com.easywsdl.exksoap2.
         {
             return "boolean";
         }
-        java.lang.String xmlName=QMWHelper.getKeyByValue(classNames,obj);
+        java.lang.String xmlName=MHTHelper.getKeyByValue(classNames,obj);
         if(xmlName==null)
         {
             return obj;

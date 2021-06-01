@@ -15,7 +15,7 @@ import java.util.Locale;
 
 
 
-public class QMWStandardDateTimeConverter implements QMWDateTimeConverter
+public class MHTStandardDateTimeConverter implements MHTDateTimeConverter
 {
     public java.util.TimeZone TimeZone=java.util.TimeZone.getTimeZone("UTC");
 

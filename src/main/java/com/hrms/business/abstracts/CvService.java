@@ -15,5 +15,5 @@ public interface CvService {
 
     DataResult<List<Cv>> getAllUniversityNameAtDesc(String universityName);
 
-    DataResult<List<Cv>> getAllCandidatesCv(int id);
+    DataResult<List<Cv>> getAllCandidatesCv(String name);
 }
