@@ -24,7 +24,7 @@ public class JobAdvertController {
         return this.jobAdvertService.add(jobAdvert);
     }
 
-    @GetMapping("/gellAllAdverts")
+    @GetMapping("/getAllAdverts")
     public DataResult<List<JobAdvert>> getAll() {
         return this.jobAdvertService.getAll();
     }

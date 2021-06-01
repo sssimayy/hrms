@@ -7,11 +7,11 @@ import com.hrms.entities.concretes.Cv;
 import java.util.List;
 
 public interface CvService {
-    Result add(Cv cv);
+    DataResult<Cv> add(Cv cv);
 
     DataResult<List<Cv>> getAll();
 
-    DataResult<List<Cv>> getAllExperienceAtDesc(String position);
+    DataResult<List<Cv>> getAllExperienceAtDesc(Long id);
 
     DataResult<List<Cv>> getAllUniversityNameAtDesc(String universityName);
 

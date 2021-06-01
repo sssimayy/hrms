@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CvDao extends JpaRepository<Cv, Long> {
 
-    List<Cv> findAllByPositionOrderByExperienceDateDesc(String position);
+    List<Cv> findAllByIdOrderByExperienceDateDesc(Long id);
 
     List<Cv> findAllByUniversityNameOrderByGradDateDesc(String universityName);
 

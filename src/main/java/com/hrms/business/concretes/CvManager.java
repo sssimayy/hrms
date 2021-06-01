@@ -22,14 +22,10 @@ public class CvManager implements CvService {
         this.candidateDao = candidateDao;
     }
 
-
-
-
     @Override
-    public Result add(Cv cv) {
+    public DataResult<Cv> add(Cv cv) {
         this.cvDao.save(cv);
-        return new SuccessResult("Cv has been added.");
-
+        return new SuccessDataResult<>("Cv has been added.");
     }
 
     @Override
@@ -38,8 +34,8 @@ public class CvManager implements CvService {
     }
 
     @Override
-    public DataResult<List<Cv>> getAllExperienceAtDesc(String position) {
-        return new SuccessDataResult<List<Cv>>(this.cvDao.findAllByPositionOrderByExperienceDateDesc(position));
+    public DataResult<List<Cv>> getAllExperienceAtDesc(Long id) {
+        return new SuccessDataResult<List<Cv>>(this.cvDao.findAllByIdOrderByExperienceDateDesc(id));
     }
 
     @Override
