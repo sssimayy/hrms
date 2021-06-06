@@ -40,7 +40,9 @@ public class Cv {
 
     private String coverLetter;
 
-    @OneToOne(mappedBy = "cv")
+    @JoinColumn(name = "candidate_id")
+    @ManyToOne
     private Candidate candidate;
+
 
 }

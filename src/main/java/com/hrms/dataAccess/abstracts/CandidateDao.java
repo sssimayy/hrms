@@ -9,6 +9,6 @@ import java.util.List;
 public interface CandidateDao extends JpaRepository<Candidate, Long> {
 
     boolean existsByNationalIdentity(String nationalIdentity);
-    List<Cv> findAllByName(String name);
+//    List<Cv> findAllByName(String name);
 
 }

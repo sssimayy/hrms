@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/cv")
+@CrossOrigin
 public class CvController {
 
     private CvService cvService;
@@ -40,7 +41,7 @@ public class CvController {
     }
 
     @GetMapping("getAllCandidatesCv")
-    public DataResult<List<Cv>> getAllCandidatesCv(@RequestParam String name) {
-        return this.cvService.getAllCandidatesCv(name);
+    public DataResult<List<Cv>> getAllCandidatesCv(@RequestParam int id) {
+        return this.cvService.getAllCandidatesCv(id);
     }
 }

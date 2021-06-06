@@ -1,7 +1,9 @@
 package com.hrms.business.concretes;
 
 import com.hrms.business.abstracts.CvService;
-import com.hrms.core.utilities.results.*;
+import com.hrms.core.utilities.results.DataResult;
+import com.hrms.core.utilities.results.ErrorDataResult;
+import com.hrms.core.utilities.results.SuccessDataResult;
 import com.hrms.dataAccess.abstracts.CandidateDao;
 import com.hrms.dataAccess.abstracts.CvDao;
 import com.hrms.entities.concretes.Cv;
@@ -24,8 +26,12 @@ public class CvManager implements CvService {
 
     @Override
     public DataResult<Cv> add(Cv cv) {
-        this.cvDao.save(cv);
-        return new SuccessDataResult<>("Cv has been added.");
+        if (!this.cvDao.existsById(cv.getId())) {
+            return new ErrorDataResult<>(cv, "Cv does not exist");
+        } else {
+            this.cvDao.save(cv);
+            return new SuccessDataResult<>("Cv has been added.");
+        }
     }
 
     @Override
@@ -43,13 +49,9 @@ public class CvManager implements CvService {
         return new SuccessDataResult<List<Cv>>(this.cvDao.findAllByUniversityNameOrderByGradDateDesc(universityName));
     }
 
-
     @Override
-    public DataResult<List<Cv>> getAllCandidatesCv(String name) {
-//        if (!this.cvDao.existsByName(name)) {
-//            return new ErrorDataResult<List<Cv>>("Cv does not exist");
-//        } else {
-            return new SuccessDataResult<List<Cv>>(this.candidateDao.findAllByName(name));
-        }
+    public DataResult<List<Cv>> getAllCandidatesCv(int id) {
 
+        return new SuccessDataResult<List<Cv>>(this.cvDao.findAllByCandidateId(id));
+    }
 }

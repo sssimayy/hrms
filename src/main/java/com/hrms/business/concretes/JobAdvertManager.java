@@ -24,7 +24,7 @@ public class JobAdvertManager implements JobAdvertService {
         if (!checkNullArea(jobAdvert)) {
             return new ErrorResult("You have entered missing information. Please fill in all fields.");
         }
-        if (!salaryCheck(jobAdvert)){
+        if (!salaryCheck(jobAdvert)) {
             return new ErrorResult("Min salary can not much than max salary.");
 
         }
