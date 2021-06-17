@@ -31,7 +31,6 @@ public class Cv {
 
     private Date experienceDate;
 
-    private int languageLevel;
 
     private String githubAddress;
 

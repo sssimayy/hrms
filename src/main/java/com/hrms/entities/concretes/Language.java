@@ -21,6 +21,8 @@ public class Language {
 
     private String foreignLanguages;
 
+    private int languageLevel;
+
     @ManyToOne()
     @JoinColumn(name = "cv_id")
     private Cv cv;
