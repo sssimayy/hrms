@@ -35,11 +35,6 @@ public class CvController {
         return this.cvService.getAllExperienceAtDesc(id);
     }
 
-    @GetMapping("/getAllUniversityNameDesc")
-    public DataResult<List<Cv>> getAllUniversityNameDesc(@RequestParam String universityName) {
-        return this.cvService.getAllUniversityNameAtDesc(universityName);
-    }
-
     @GetMapping("/getAllCandidatesCv")
     public DataResult<List<Cv>> getAllCandidatesCv(@RequestParam int id) {
         return this.cvService.getAllCandidatesCv(id);

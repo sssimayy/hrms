@@ -9,8 +9,6 @@ public interface CvDao extends JpaRepository<Cv, Long> {
 
     List<Cv> findAllByIdOrderByExperienceDateDesc(Long id);
 
-    List<Cv> findAllByUniversityNameOrderByGradDateDesc(String universityName);
-
     //    @Query("select new com.hrms.entities.concretes.Cv"
 //            + "(p.id,p.name,c.position)"
 //            + "from Candidate  c INNER JOIN c.cv p")

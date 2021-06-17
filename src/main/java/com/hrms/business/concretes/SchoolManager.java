@@ -4,6 +4,7 @@ import com.hrms.business.abstracts.SchoolService;
 import com.hrms.core.utilities.results.DataResult;
 import com.hrms.core.utilities.results.SuccessDataResult;
 import com.hrms.dataAccess.abstracts.SchoolDao;
+import com.hrms.entities.concretes.Cv;
 import com.hrms.entities.concretes.School;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,10 @@ public class SchoolManager implements SchoolService {
     @Override
     public DataResult<List<School>> getAllSchool() {
         return new SuccessDataResult<>(schoolDao.findAll(), "Data listed successfully");
+    }
+
+    @Override
+    public DataResult<List<Cv>> getAllUniversityNameAtDesc(String universityName) {
+        return new SuccessDataResult<List<Cv>>(this.schoolDao.findAllByUniversityNameOrderByGradDateDesc(universityName));
     }
 }

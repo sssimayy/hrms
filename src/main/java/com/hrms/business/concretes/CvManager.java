@@ -45,11 +45,6 @@ public class CvManager implements CvService {
     }
 
     @Override
-    public DataResult<List<Cv>> getAllUniversityNameAtDesc(String universityName) {
-        return new SuccessDataResult<List<Cv>>(this.cvDao.findAllByUniversityNameOrderByGradDateDesc(universityName));
-    }
-
-    @Override
     public DataResult<List<Cv>> getAllCandidatesCv(int id) {
 
         return new SuccessDataResult<List<Cv>>(this.cvDao.findAllByCandidateId(id));
