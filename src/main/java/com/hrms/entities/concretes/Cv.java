@@ -38,10 +38,11 @@ public class Cv {
 
     private String programmingLanguages;
 
+    private String foreignLanguages;
+
     private String coverLetter;
 
-    @JoinColumn(name = "candidate_id")
-    @ManyToOne
+    @OneToOne
     private Candidate candidate;
 
 

@@ -50,7 +50,7 @@ public class CandidateManager implements CandidateService {
                 confirmPasswordCheck.check(candidate),
                 mernisService.checkForPersonelInformation(candidate)));
 
-        if(!isValid(candidate.getEmail())){
+        if (!isValid(candidate.getEmail())) {
             return new ErrorDataResult<>(candidate, "Email is not valid format");
         }
 
@@ -70,9 +70,14 @@ public class CandidateManager implements CandidateService {
     public DataResult<List<Candidate>> getAll() {
         return new SuccessDataResult<>(candidateDao.findAll(), "Data listed successfully");
     }
-    public static boolean isValid(String email)
-    {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+
+    @Override
+    public DataResult<Candidate> getByCandidateId(int id) {
+        return new SuccessDataResult<Candidate>(this.candidateDao.getById(id), "Data listed successfully");
+    }
+
+    public static boolean isValid(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                 "[a-zA-Z0-9_+&*-]+)*@" +
                 "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
                 "A-Z]{2,7}$";

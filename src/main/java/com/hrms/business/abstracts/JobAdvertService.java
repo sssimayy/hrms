@@ -21,7 +21,7 @@ public interface JobAdvertService {
 
     DataResult<List<JobAdvert>> findAllByOrderByPublishedAtDesc();
 
-    DataResult<List<JobAdvert>> getAllActiveAdvertsOfFirm(String companyName);
+    DataResult<List<JobAdvert>> getAllActiveAdvertsById(int id);
 
     DataResult<List<JobAdvert>> findAllByIsActiveAndCompanyName(int id);
 }

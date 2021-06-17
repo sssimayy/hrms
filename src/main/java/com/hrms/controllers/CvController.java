@@ -40,7 +40,7 @@ public class CvController {
         return this.cvService.getAllUniversityNameAtDesc(universityName);
     }
 
-    @GetMapping("getAllCandidatesCv")
+    @GetMapping("/getAllCandidatesCv")
     public DataResult<List<Cv>> getAllCandidatesCv(@RequestParam int id) {
         return this.cvService.getAllCandidatesCv(id);
     }

@@ -71,8 +71,8 @@ public class JobAdvertManager implements JobAdvertService {
     }
 
     @Override
-    public DataResult<List<JobAdvert>> getAllActiveAdvertsOfFirm(String companyName) {
-        return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAllByCompanyName(companyName), "All open adverts are listed");
+    public DataResult<List<JobAdvert>> getAllActiveAdvertsById(int id) {
+        return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAllByJobId(id), "All open adverts are listed");
     }
 
     @Override

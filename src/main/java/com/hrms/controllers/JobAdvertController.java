@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/jobAdvert")
+@CrossOrigin
 public class JobAdvertController {
     private JobAdvertService jobAdvertService;
 
@@ -45,8 +46,8 @@ public class JobAdvertController {
     }
 
     @GetMapping("/getAllActiveAdvertsOfFirm")
-    public DataResult<List<JobAdvert>> getAllActiveAdvertsOfFirm(@RequestParam String companyName) {
-        return this.jobAdvertService.getAllActiveAdvertsOfFirm(companyName);
+    public DataResult<List<JobAdvert>> getAllActiveAdvertsById(@RequestParam int  id) {
+        return this.jobAdvertService.getAllActiveAdvertsById(id);
     }
 
     @GetMapping("/getEmployerJobAdvertisement")

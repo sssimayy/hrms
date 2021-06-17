@@ -23,6 +23,12 @@ public class City {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "location")
+    private String location;
+
+    @Column(name = "job_time")
+    private String jobTime;
+
     @OneToMany(mappedBy = "city")
     private List<JobAdvert> jobAdvertsList;
 }

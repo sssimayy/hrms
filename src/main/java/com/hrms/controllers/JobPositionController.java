@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/jobPosition")
+@CrossOrigin
 public class JobPositionController {
 
     private JobPositionService jobPositionService;

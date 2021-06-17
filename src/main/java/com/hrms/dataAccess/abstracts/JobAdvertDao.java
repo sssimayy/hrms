@@ -12,9 +12,9 @@ public interface JobAdvertDao extends JpaRepository<JobAdvert, Integer> {
 
     List<JobAdvert> findAllByIsActiveOrderByPublishedAtDesc(boolean isActive);
 
-    List<JobAdvert> findAllByCompanyName(String companyName);
+    List<JobAdvert> findAllByJobId(int id);
 
-    @Query("From JobAdvert where isActive=true and candidate_id=:id")
+    @Query("From JobAdvert where isActive=true and id=:id")
     List<JobAdvert> getEmployersActiveAdvert(int id);
 
 }

@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/candidate")
+@CrossOrigin  //default olarak dışarıya izin verir
 public class CandidateController {
 
     private CandidateService candidateService;
@@ -29,4 +30,8 @@ public class CandidateController {
         return candidateService.getAll();
     }
 
+    @GetMapping("/getByCandidateId")
+    public DataResult<Candidate> getByCandidateId(@RequestParam int id){
+        return this.candidateService.getByCandidateId(id);
+    }
 }

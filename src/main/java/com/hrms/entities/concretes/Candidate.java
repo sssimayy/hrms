@@ -1,5 +1,6 @@
 package com.hrms.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hrms.entities.abstracts.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,9 +14,14 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "candidates")
-@PrimaryKeyJoinColumn(name = "user_id")
+//@PrimaryKeyJoinColumn(name = "user_id")
 @EqualsAndHashCode(callSuper = true)
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","cv"})
 public class Candidate extends User {
+
+    @Id
+    @GeneratedValue
+    private int id;
 
     @NotBlank(message = "Name cannot be empty.")
     @Column(name = "name", nullable = false)
@@ -43,7 +49,6 @@ public class Candidate extends User {
     @Column(name = "verification_code", updatable = false)
     private String verificationCode;
 
-    @OneToOne
-    @JoinColumn(name = "candidate_id")
+    @OneToOne(mappedBy = "candidate", cascade = CascadeType.REMOVE)
     private Cv cv;
 }

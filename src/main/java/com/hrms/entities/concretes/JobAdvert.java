@@ -17,8 +17,8 @@ import java.time.LocalDate;
 public class JobAdvert {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "job_id")
+    private int jobId;
 
     @Size(min = 3, max = 50, message = "Description length should be between 3 and 50.")
     @Column(name = "description")
@@ -32,6 +32,18 @@ public class JobAdvert {
     @NotBlank(message = "Min salary cannot be empty.")
     @Column(name = "salary_min")
     private int salaryMin;
+
+    @Column(name = "web_site")
+    @NotBlank
+    private String website;
+
+    @Column(name = "email")
+    @NotBlank
+    private String email;
+
+    @Column(name = "phone")
+    @NotBlank
+    private String phone;
 
     @Column(name = "salary_max")
     @NotBlank(message = "Max salary cannot be empty.")
@@ -64,7 +76,7 @@ public class JobAdvert {
     private JobPosition jobPosition;
 
     @ManyToOne
-    @JoinColumn(name = "candidate_id")
+    @JoinColumn(name = "id")
     private Candidate candidate;
 
     @ManyToOne
