@@ -19,18 +19,11 @@ public class Cv {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String universityName;
-
-    private String department;
-
-    private Date gradDate;
-
     private String firmName;
 
     private String position;
 
     private Date experienceDate;
-
 
     private String githubAddress;
 
@@ -45,4 +38,7 @@ public class Cv {
 
     @OneToMany(mappedBy = "cv")
     private List<Language> languages;
+
+    @OneToMany(mappedBy = "cv")
+    private List<School> schools;
 }
