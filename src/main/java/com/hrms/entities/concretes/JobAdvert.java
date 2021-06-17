@@ -33,6 +33,10 @@ public class JobAdvert {
     @Column(name = "salary_min")
     private int salaryMin;
 
+    @Column(name = "salary_max")
+    @NotBlank(message = "Max salary cannot be empty.")
+    private int salaryMax;
+
     @Column(name = "web_site")
     @NotBlank
     private String website;
@@ -44,10 +48,6 @@ public class JobAdvert {
     @Column(name = "phone")
     @NotBlank
     private String phone;
-
-    @Column(name = "salary_max")
-    @NotBlank(message = "Max salary cannot be empty.")
-    private int salaryMax;
 
     @Size(min = 3, max = 50, message = "Position length should be between 3 and 50.")
     @Column(name = "open_position_count")
@@ -82,5 +82,13 @@ public class JobAdvert {
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
+
+    @ManyToOne
+    @JoinColumn(name = "working_place_id")
+    private WorkingPlace workingPlace;
+
+    @ManyToOne
+    @JoinColumn(name = "working_time_id")
+    private WorkingTime workingTime;
 
 }

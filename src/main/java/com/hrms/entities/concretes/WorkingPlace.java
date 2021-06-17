@@ -7,21 +7,21 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
-
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "city")
+@Table(name = "work_place")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdvertsList"})
-public class City {
+public class WorkingPlace {
+
     @Id
     @GeneratedValue
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "location")
+    private String location;
 
     @OneToMany(mappedBy = "city")
     private List<JobAdvert> jobAdvertsList;

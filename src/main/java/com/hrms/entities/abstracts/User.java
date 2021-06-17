@@ -32,7 +32,7 @@ public abstract class User {
     @Column(name = "password")
     @NotEmpty
     @NotBlank(message = "Password can not be empty!")
-    @Size(min = 6, max = 30, message = "Password length should be between 6-30.")
+    @Size(min = 6, max = 10, message = "Password length should be between 6-10.")
     private String password;
 
     @Transient
