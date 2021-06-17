@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -38,12 +39,11 @@ public class Cv {
 
     private String programmingLanguages;
 
-    private String foreignLanguages;
-
     private String coverLetter;
 
     @OneToOne
     private Candidate candidate;
 
-
+    @OneToMany(mappedBy = "cv")
+    private List<Language> languages;
 }

@@ -23,7 +23,7 @@ public class JobPositionManager implements JobPositionService {
 
     @Override
     public DataResult<JobPosition> addJobPosition(JobPosition jobPosition) {
-        if (getJobByTitle(jobPosition.getTitle()).getData()!=null) {
+        if (getJobByTitle(jobPosition.getTitle()).getData() != null) {
             return new ErrorDataResult<>("This job already exist.");
         }
         return new SuccessDataResult<>(
