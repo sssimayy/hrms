@@ -39,10 +39,10 @@ public class Candidate {
     @Size(min = 6, max = 10, message = "Password length should be between 6-10.")
     private String password;
 
-    @Transient
+
     @NotBlank(message = "Password check cannot be empty.")
     @Column(name = "passwordCheck")
-    @Size(min = 6, max = 30, message = "Password length should be between 6-30.")
+    @Size(min = 6, max = 10, message = "Password length should be between 6-10.")
     private String passwordCheck;
 
     @NotBlank(message = "National identity cannot be empty.")
