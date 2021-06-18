@@ -1,9 +1,10 @@
 package com.hrms.business.concretes;
 
-import com.hrms.business.abstracts.JobAdvertService;
+import com.hrms.business.abstracts.*;
 import com.hrms.core.utilities.results.*;
 import com.hrms.dataAccess.abstracts.JobAdvertDao;
 import com.hrms.entities.concretes.JobAdvert;
+import com.hrms.entities.concretes.dtos.JobPostingSubmitDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,23 +14,48 @@ import java.util.List;
 public class JobAdvertManager implements JobAdvertService {
 
     private JobAdvertDao jobAdvertDao;
+    private CityService cityService;
+    private JobPositionService jobPositionService;
+    private CandidateService candidateService;
+    private WorkingPlaceService workingPlaceService;
+    private WorkingTimeService workingTimeService;
 
     @Autowired
-    public JobAdvertManager(JobAdvertDao jobAdvertDao) {
+    public JobAdvertManager(JobAdvertDao jobAdvertDao, CityService cityService, JobPositionService jobPositionService, CandidateService candidateService, WorkingPlaceService workingPlaceService, WorkingTimeService workingTimeService) {
         this.jobAdvertDao = jobAdvertDao;
+        this.cityService = cityService;
+        this.jobPositionService = jobPositionService;
+        this.candidateService = candidateService;
+        this.workingPlaceService = workingPlaceService;
+        this.workingTimeService = workingTimeService;
     }
 
-    @Override
-    public Result add(JobAdvert jobAdvert) {
-        if (!checkNullArea(jobAdvert)) {
-            return new ErrorResult("You have entered missing information. Please fill in all fields.");
-        }
-        if (!salaryCheck(jobAdvert)) {
-            return new ErrorResult("Min salary can not much than max salary.");
 
-        }
-        this.jobAdvertDao.save(jobAdvert);
-        return new SuccessResult("Job advert has been added.");
+    @Override
+    public Result add(JobPostingSubmitDto jobPostingSubmitDto) {
+        JobAdvert jobAdvert = new JobAdvert();
+
+        jobAdvert.setDescription(jobPostingSubmitDto.getDescription());
+        jobAdvert.setSalaryMax(jobPostingSubmitDto.getSalaryMax());
+        jobAdvert.setSalaryMin(jobPostingSubmitDto.getSalaryMin());
+        jobAdvert.setDeadline(jobPostingSubmitDto.getDeadline());
+        jobAdvert.setActive(true);
+        jobAdvert.setCompanyName(jobPostingSubmitDto.getCompanyName());
+        jobAdvert.setPhone(jobPostingSubmitDto.getPhone());
+        jobAdvert.setWebsite(jobPostingSubmitDto.getWebsite());
+        jobAdvert.setEmail(jobPostingSubmitDto.getEmail());
+        jobAdvert.setOpenPositionCount(jobPostingSubmitDto.getOpenPositionCount());
+        jobAdvert.setPublishedAt(jobPostingSubmitDto.getPublishedAt());
+        jobAdvert.setCreatedAt(jobPostingSubmitDto.getCreatedAt());
+        jobAdvert.setDeleted(false);
+        jobAdvert.setCity(cityService.findById(jobPostingSubmitDto.getCityId()).getData());
+        jobAdvert.setJobPosition(jobPositionService.getById(jobPostingSubmitDto.getJobPositionId()).getData());
+        jobAdvert.setCandidate(candidateService.getByCandidateId(jobPostingSubmitDto.getCandidateId()).getData());
+        jobAdvert.setWorkingPlace(workingPlaceService.getById(jobPostingSubmitDto.getWorkingPlaceId()).getData());
+        jobAdvert.setWorkingTime(workingTimeService.findById(jobPostingSubmitDto.getWorkingTimeId()).getData());
+
+        jobAdvertDao.save(jobAdvert);
+        return new SuccessResult("Success!");
     }
 
     @Override
@@ -55,7 +81,7 @@ public class JobAdvertManager implements JobAdvertService {
         }
 
         JobAdvert jobAdvert = this.jobAdvertDao.getOne(id);
-        jobAdvert.setOpen(false);
+        jobAdvert.setActive(false);
 
         return new SuccessDataResult<JobAdvert>(this.jobAdvertDao.save(jobAdvert), "Job advert has been successfully closed.");
     }

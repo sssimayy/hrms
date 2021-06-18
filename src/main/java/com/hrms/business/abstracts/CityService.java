@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CityService {
     DataResult<List<City>> getAll();
+    DataResult<City> findById(int id);
 }

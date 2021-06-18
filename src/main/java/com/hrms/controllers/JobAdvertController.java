@@ -4,9 +4,11 @@ import com.hrms.business.abstracts.JobAdvertService;
 import com.hrms.core.utilities.results.DataResult;
 import com.hrms.core.utilities.results.Result;
 import com.hrms.entities.concretes.JobAdvert;
+import com.hrms.entities.concretes.dtos.JobPostingSubmitDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,8 +23,8 @@ public class JobAdvertController {
     }
 
     @PostMapping("/add")
-    public Result add(@RequestBody JobAdvert jobAdvert) {
-        return this.jobAdvertService.add(jobAdvert);
+    public Result add(@Valid @RequestBody JobPostingSubmitDto jobPosting) {
+        return this.jobAdvertService.add(jobPosting);
     }
 
     @GetMapping("/getAllAdverts")
@@ -46,7 +48,7 @@ public class JobAdvertController {
     }
 
     @GetMapping("/getAllActiveAdvertsOfFirm")
-    public DataResult<List<JobAdvert>> getAllActiveAdvertsById(@RequestParam int  id) {
+    public DataResult<List<JobAdvert>> getAllActiveAdvertsById(@RequestParam int id) {
         return this.jobAdvertService.getAllActiveAdvertsById(id);
     }
 

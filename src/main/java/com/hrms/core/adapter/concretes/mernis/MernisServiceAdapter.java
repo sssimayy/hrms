@@ -6,6 +6,7 @@ import com.hrms.core.utilities.results.Result;
 import com.hrms.core.utilities.results.SuccessResult;
 import com.hrms.entities.concretes.Candidate;
 
+import com.hrms.entities.concretes.dtos.CandidateDto;
 import com.hrms.mernis.MHTKPSPublicSoap;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class MernisServiceAdapter implements MernisService {
     MHTKPSPublicSoap cfdkpsPublicSoap = new MHTKPSPublicSoap();
 
     @Override
-    public Result checkForPersonelInformation(Candidate candidate) {
+    public Result checkForPersonelInformation(CandidateDto candidate) {
 
         try {
             Calendar calendar = new GregorianCalendar();

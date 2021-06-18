@@ -33,7 +33,7 @@ public class JobPositionManager implements JobPositionService {
     }
 
     @Override
-    public DataResult<List<JobPosition>> getAllJobPositios() {
+    public DataResult<List<JobPosition>> getAllJobPositions() {
         return new SuccessDataResult<>(this.jobPositionDao.findAll(), "Data listed successfully");
     }
 
@@ -41,4 +41,16 @@ public class JobPositionManager implements JobPositionService {
     public DataResult<JobPosition> getJobByTitle(String title) {
         return new SuccessDataResult<JobPosition>(this.jobPositionDao.existsByTitle(title));
     }
+
+    @Override
+    public DataResult<JobPosition> getById(int id) {
+        JobPosition jobPositionInDB = jobPositionDao.getOne(id);
+
+        if (jobPositionInDB == null) {
+            return new ErrorDataResult<>("Data not found!");
+        }
+
+        return new SuccessDataResult<>(jobPositionInDB, "Data found");
+    }
+
 }

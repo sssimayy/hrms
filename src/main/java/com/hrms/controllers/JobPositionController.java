@@ -27,7 +27,7 @@ public class JobPositionController {
 
     @GetMapping("/getAll")
     public DataResult<List<JobPosition>> getAllJobPositions() {
-        return jobPositionService.getAllJobPositios();
+        return jobPositionService.getAllJobPositions();
     }
 
 }

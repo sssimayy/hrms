@@ -3,11 +3,12 @@ package com.hrms.business.abstracts;
 import com.hrms.core.utilities.results.DataResult;
 import com.hrms.core.utilities.results.Result;
 import com.hrms.entities.concretes.JobAdvert;
+import com.hrms.entities.concretes.dtos.JobPostingSubmitDto;
 
 import java.util.List;
 
 public interface JobAdvertService {
-    Result add(JobAdvert jobAdvert);
+    Result add(JobPostingSubmitDto jobPostingSubmitDto);
 
     Result update(JobAdvert jobAdvert);
 

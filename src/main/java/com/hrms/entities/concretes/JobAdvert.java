@@ -62,9 +62,6 @@ public class JobAdvert {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
-    @Column(name = "is_open")
-    private boolean isOpen;
-
     @Column(name = "is_active")
     private boolean isActive;
 

@@ -1,23 +1,17 @@
 package com.hrms.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.hrms.entities.abstracts.User;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Date;
 
 @Data
 @Entity
 @Table(name = "candidates")
-//@PrimaryKeyJoinColumn(name = "user_id")
-@EqualsAndHashCode(callSuper = true)
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","cv"})
-public class Candidate extends User {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "cv"})
+public class Candidate {
 
     @Id
     @GeneratedValue
@@ -33,6 +27,24 @@ public class Candidate extends User {
     @Size(min = 3, max = 50, message = "Surname length should be between 3 and 50.")
     private String surname;
 
+    @Column(name = "email", unique = true)
+    @Email(message = "Wrong email format!")
+    @NotEmpty
+    @NotBlank(message = "Email can not be empty!")
+    private String email;
+
+    @Column(name = "password")
+    @NotEmpty
+    @NotBlank(message = "Password can not be empty!")
+    @Size(min = 6, max = 10, message = "Password length should be between 6-10.")
+    private String password;
+
+    @Transient
+    @NotBlank(message = "Password check cannot be empty.")
+    @Column(name = "passwordCheck")
+    @Size(min = 6, max = 30, message = "Password length should be between 6-30.")
+    private String passwordCheck;
+
     @NotBlank(message = "National identity cannot be empty.")
     @Column(name = "national_identity", nullable = false, length = 11, unique = true)
     @Size(min = 11, max = 11, message = "National identity length must be 11.")
@@ -42,9 +54,6 @@ public class Candidate extends User {
     @Column(name = "birth_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date birthDate;
-
-    @Column(name = "enabled")
-    private boolean enabled = false;
 
     @Column(name = "verification_code", updatable = false)
     private String verificationCode;
