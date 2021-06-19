@@ -1,2 +1,2 @@
-HRMS projesi java spring backend- react frontend
+HRMS projesi java spring backend- react frontend-
 PostgreSql
