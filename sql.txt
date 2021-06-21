@@ -1,0 +1,247 @@
+-- Database: HRMS
+
+-- DROP DATABASE "HRMS";
+
+CREATE DATABASE "HRMS"
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Turkish_Turkey.1254'
+    LC_CTYPE = 'Turkish_Turkey.1254'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+
+-- Table: public.candidates
+
+-- DROP TABLE public.candidates;
+
+CREATE TABLE public.candidates
+(
+    id integer NOT NULL,
+    birth_date date NOT NULL,
+    email character varying(255) COLLATE pg_catalog."default",
+    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    national_identity character varying(11) COLLATE pg_catalog."default" NOT NULL,
+    password character varying(255) COLLATE pg_catalog."default",
+    surname character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    verification_code character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT candidates_pkey PRIMARY KEY (id),
+    CONSTRAINT uk_1n4cae3finepv1cdlytdk4sp UNIQUE (national_identity),
+    CONSTRAINT uk_nm2ss73jii2hdupmpphl6agry UNIQUE (email)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.candidates
+    OWNER to postgres;
+    
+    
+
+-- Table: public.candidates
+
+-- DROP TABLE public.candidates;
+
+CREATE TABLE public.candidates
+(
+    id integer NOT NULL,
+    birth_date date NOT NULL,
+    email character varying(255) COLLATE pg_catalog."default",
+    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    national_identity character varying(11) COLLATE pg_catalog."default" NOT NULL,
+    password character varying(255) COLLATE pg_catalog."default",
+    surname character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    verification_code character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT candidates_pkey PRIMARY KEY (id),
+    CONSTRAINT uk_1n4cae3finepv1cdlytdk4sp UNIQUE (national_identity),
+    CONSTRAINT uk_nm2ss73jii2hdupmpphl6agry UNIQUE (email)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.candidates
+    OWNER to postgres;
+    
+    
+-- Table: public.cvs
+
+-- DROP TABLE public.cvs;
+
+CREATE TABLE public.cvs
+(
+    id bigint NOT NULL DEFAULT nextval('cvs_id_seq'::regclass),
+    cover_letter character varying(255) COLLATE pg_catalog."default",
+    experience_date timestamp without time zone,
+    firm_name character varying(255) COLLATE pg_catalog."default",
+    github_address character varying(255) COLLATE pg_catalog."default",
+    linkedin_address character varying(255) COLLATE pg_catalog."default",
+    "position" character varying(255) COLLATE pg_catalog."default",
+    programming_languages character varying(255) COLLATE pg_catalog."default",
+    candidate_id integer,
+    CONSTRAINT cvs_pkey PRIMARY KEY (id),
+    CONSTRAINT fkpiu4o0wcsluogg8mld4q1s53i FOREIGN KEY (candidate_id)
+        REFERENCES public.candidates (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.cvs
+    OWNER to postgres;    
+    
+    
+-- Table: public.job_advert
+
+-- DROP TABLE public.job_advert;
+
+CREATE TABLE public.job_advert
+(
+    job_id integer NOT NULL DEFAULT nextval('job_advert_job_id_seq'::regclass),
+    company_name character varying(255) COLLATE pg_catalog."default",
+    created_at date,
+    deadline date,
+    description character varying(255) COLLATE pg_catalog."default",
+    email character varying(255) COLLATE pg_catalog."default",
+    is_active boolean,
+    is_deleted boolean,
+    open_position_count integer,
+    phone character varying(255) COLLATE pg_catalog."default",
+    published_at date,
+    salary_max integer,
+    salary_min integer,
+    web_site character varying(255) COLLATE pg_catalog."default",
+    id integer,
+    city_id integer,
+    job_position_id bigint,
+    working_place_id integer,
+    working_time_id integer,
+    CONSTRAINT job_advert_pkey PRIMARY KEY (job_id),
+    CONSTRAINT fkb0pyb2tq7p7fxtc65ior7f8bj FOREIGN KEY (working_time_id)
+        REFERENCES public.working_time (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fkew44gtxc5yuqg93sininunkhq FOREIGN KEY (id)
+        REFERENCES public.candidates (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fkfi4qymeobar2vt4nuk3qto6lo FOREIGN KEY (job_position_id)
+        REFERENCES public.job_positions (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fkfnbcu8qi6jcv0o88gytjgtk79 FOREIGN KEY (working_place_id)
+        REFERENCES public.work_place (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fkg5kpjilbaxrv06hqkcuw4awew FOREIGN KEY (city_id)
+        REFERENCES public.city (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.job_advert
+    OWNER to postgres;    
+    
+    
+-- Table: public.job_positions
+
+-- DROP TABLE public.job_positions;
+
+CREATE TABLE public.job_positions
+(
+    id bigint NOT NULL DEFAULT nextval('job_positions_id_seq'::regclass),
+    created_at date DEFAULT CURRENT_DATE,
+    is_active boolean DEFAULT true,
+    is_deleted boolean DEFAULT false,
+    title character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT job_positions_pkey PRIMARY KEY (id),
+    CONSTRAINT uk_9icwutycr7mixlk6kcuo5wyup UNIQUE (title)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.job_positions
+    OWNER to postgres;  
+
+
+-- Table: public.language
+
+-- DROP TABLE public.language;
+
+CREATE TABLE public.language
+(
+    id bigint NOT NULL DEFAULT nextval('language_id_seq'::regclass),
+    foreign_languages character varying(255) COLLATE pg_catalog."default",
+    language_level integer NOT NULL,
+    cv_id bigint,
+    CONSTRAINT language_pkey PRIMARY KEY (id),
+    CONSTRAINT fki9o4g61yf6o11b3up01ggyex9 FOREIGN KEY (cv_id)
+        REFERENCES public.cvs (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.language
+    OWNER to postgres;
+    
+    
+-- Table: public.school
+
+-- DROP TABLE public.school;
+
+CREATE TABLE public.school
+(
+    id bigint NOT NULL DEFAULT nextval('school_id_seq'::regclass),
+    department character varying(255) COLLATE pg_catalog."default",
+    grad_date timestamp without time zone,
+    university_name character varying(255) COLLATE pg_catalog."default",
+    cv_id bigint,
+    CONSTRAINT school_pkey PRIMARY KEY (id),
+    CONSTRAINT fk9n05pvhgsjy398glgid3qan24 FOREIGN KEY (cv_id)
+        REFERENCES public.cvs (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.school
+    OWNER to postgres; 
+
+-- Table: public.work_place
+
+-- DROP TABLE public.work_place;
+
+CREATE TABLE public.work_place
+(
+    id integer NOT NULL,
+    location character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT work_place_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.work_place
+    OWNER to postgres;  
+
+-- Table: public.working_time
+
+-- DROP TABLE public.working_time;
+
+CREATE TABLE public.working_time
+(
+    id integer NOT NULL,
+    name character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT working_time_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.working_time
+    OWNER to postgres;    
+    
+    
