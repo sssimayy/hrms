@@ -5,22 +5,26 @@ import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Data
-public class CandidateDto {
+public class EmployerDto {
+    @NotNull
+    @NotBlank
+    private String companyName;
 
     @NotNull
     @NotBlank
-    private String name;
-
-    @NotNull
     @NotBlank
-    private String surname;
+    private String website;
 
     @NotNull
+
     @Email
     private String email;
+
+    @NotNull
+    @NotBlank
+    private String phone;
 
     @NotNull
     @NotBlank
@@ -28,13 +32,5 @@ public class CandidateDto {
 
     @NotNull
     @NotBlank
-    private String passwordCheck;
-
-    @NotNull
-    private String nationalIdentity;
-
-    @NotNull
-    private Date birthDate;
-
-    private String verificationCode;
+    private String passwordRepeat;
 }

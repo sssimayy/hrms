@@ -24,11 +24,6 @@ public class JobAdvert {
     @Column(name = "description")
     private String description;
 
-    @Size(min = 3, max = 50, message = "Company name length should be between 3 and 50.")
-    @NotBlank(message = "Company name cannot be empty.")
-    @Column(name = "company_name")
-    private String companyName;
-
     @NotBlank(message = "Min salary cannot be empty.")
     @Column(name = "salary_min")
     private int salaryMin;
@@ -36,18 +31,6 @@ public class JobAdvert {
     @Column(name = "salary_max")
     @NotBlank(message = "Max salary cannot be empty.")
     private int salaryMax;
-
-    @Column(name = "web_site")
-    @NotBlank
-    private String website;
-
-    @Column(name = "email")
-    @NotBlank
-    private String email;
-
-    @Column(name = "phone")
-    @NotBlank
-    private String phone;
 
     @Size(min = 3, max = 50, message = "Position length should be between 3 and 50.")
     @Column(name = "open_position_count")
@@ -73,10 +56,6 @@ public class JobAdvert {
     private JobPosition jobPosition;
 
     @ManyToOne
-    @JoinColumn(name = "id")
-    private Candidate candidate;
-
-    @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
 
@@ -87,5 +66,8 @@ public class JobAdvert {
     @ManyToOne
     @JoinColumn(name = "working_time_id")
     private WorkingTime workingTime;
+
+    @ManyToOne
+    private Employer employer;
 
 }

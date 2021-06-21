@@ -14,7 +14,7 @@ import java.util.Date;
 public class Candidate {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotBlank(message = "Name cannot be empty.")
@@ -38,7 +38,6 @@ public class Candidate {
     @NotBlank(message = "Password can not be empty!")
     @Size(min = 6, max = 10, message = "Password length should be between 6-10.")
     private String password;
-
 
     @NotBlank(message = "Password check cannot be empty.")
     @Column(name = "passwordCheck")

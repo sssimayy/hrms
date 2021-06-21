@@ -33,12 +33,12 @@ public class Cv {
 
     private String coverLetter;
 
-    @OneToOne
-    private Candidate candidate;
-
     @OneToMany(mappedBy = "cv")
     private List<Language> languages;
 
     @OneToMany(mappedBy = "cv")
     private List<School> schools;
+
+    @OneToOne
+    private Candidate candidate;
 }

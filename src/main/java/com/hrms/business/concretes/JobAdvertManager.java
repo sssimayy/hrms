@@ -19,15 +19,17 @@ public class JobAdvertManager implements JobAdvertService {
     private CandidateService candidateService;
     private WorkingPlaceService workingPlaceService;
     private WorkingTimeService workingTimeService;
+    private EmployerService employerService;
 
     @Autowired
-    public JobAdvertManager(JobAdvertDao jobAdvertDao, CityService cityService, JobPositionService jobPositionService, CandidateService candidateService, WorkingPlaceService workingPlaceService, WorkingTimeService workingTimeService) {
+    public JobAdvertManager(JobAdvertDao jobAdvertDao, CityService cityService, JobPositionService jobPositionService, CandidateService candidateService, WorkingPlaceService workingPlaceService, WorkingTimeService workingTimeService, EmployerService employerService) {
         this.jobAdvertDao = jobAdvertDao;
         this.cityService = cityService;
         this.jobPositionService = jobPositionService;
         this.candidateService = candidateService;
         this.workingPlaceService = workingPlaceService;
         this.workingTimeService = workingTimeService;
+        this.employerService = employerService;
     }
 
 
@@ -40,17 +42,13 @@ public class JobAdvertManager implements JobAdvertService {
         jobAdvert.setSalaryMin(jobPostingSubmitDto.getSalaryMin());
         jobAdvert.setDeadline(jobPostingSubmitDto.getDeadline());
         jobAdvert.setActive(true);
-        jobAdvert.setCompanyName(jobPostingSubmitDto.getCompanyName());
-        jobAdvert.setPhone(jobPostingSubmitDto.getPhone());
-        jobAdvert.setWebsite(jobPostingSubmitDto.getWebsite());
-        jobAdvert.setEmail(jobPostingSubmitDto.getEmail());
         jobAdvert.setOpenPositionCount(jobPostingSubmitDto.getOpenPositionCount());
         jobAdvert.setPublishedAt(jobPostingSubmitDto.getPublishedAt());
         jobAdvert.setCreatedAt(jobPostingSubmitDto.getCreatedAt());
         jobAdvert.setDeleted(false);
+        jobAdvert.setEmployer(employerService.findByEmail(jobPostingSubmitDto.getEmail()).getData());
         jobAdvert.setCity(cityService.findById(jobPostingSubmitDto.getCityId()).getData());
         jobAdvert.setJobPosition(jobPositionService.getById(jobPostingSubmitDto.getJobPositionId()).getData());
-        jobAdvert.setCandidate(candidateService.getByCandidateId(jobPostingSubmitDto.getCandidateId()).getData());
         jobAdvert.setWorkingPlace(workingPlaceService.getById(jobPostingSubmitDto.getWorkingPlaceId()).getData());
         jobAdvert.setWorkingTime(workingTimeService.findById(jobPostingSubmitDto.getWorkingTimeId()).getData());
 
