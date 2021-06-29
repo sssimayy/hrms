@@ -11,4 +11,5 @@ public interface CandidateDao extends JpaRepository<Candidate, Long> {
 
     boolean existsByEmail(String email);
 
+    Candidate findByEmail(String email);
 }

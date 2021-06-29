@@ -5,9 +5,11 @@ import com.hrms.core.utilities.results.DataResult;
 import com.hrms.core.utilities.results.ErrorDataResult;
 import com.hrms.core.utilities.results.Result;
 import com.hrms.entities.concretes.Employer;
+import com.hrms.entities.concretes.EmployerUpdate;
 import com.hrms.entities.concretes.dtos.EmployerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -49,4 +51,23 @@ public class EmployerController {
 
         return new ErrorDataResult<>(validationErrors, "Doğrulama Başarısız!");
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> update(@RequestBody EmployerUpdate employerUpdate){
+        Result result = this.employerService.update(employerUpdate);
+        if(result.isSuccess()){
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.badRequest().body(result);
+    }
+
+    @PutMapping("/verifyUpdate")
+    public ResponseEntity<?> verifyUpdate(@RequestParam int employerUpdateId,@RequestParam int staffId){
+        Result result = this.employerService.verifyUpdate(employerUpdateId,staffId);
+        if(result.isSuccess()){
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.badRequest().body(result);
+    }
+
 }

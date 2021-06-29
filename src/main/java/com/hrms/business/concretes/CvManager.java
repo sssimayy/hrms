@@ -1,9 +1,7 @@
 package com.hrms.business.concretes;
 
 import com.hrms.business.abstracts.CvService;
-import com.hrms.core.utilities.results.DataResult;
-import com.hrms.core.utilities.results.ErrorDataResult;
-import com.hrms.core.utilities.results.SuccessDataResult;
+import com.hrms.core.utilities.results.*;
 import com.hrms.dataAccess.abstracts.CandidateDao;
 import com.hrms.dataAccess.abstracts.CvDao;
 import com.hrms.entities.concretes.Cv;
@@ -48,5 +46,81 @@ public class CvManager implements CvService {
     public DataResult<List<Cv>> getAllCandidatesCv(int id) {
 
         return new SuccessDataResult<List<Cv>>(this.cvDao.findAllByCandidateId(id));
+    }
+
+    @Override
+    public Result updateGithub(String githubAddress, long cvId) {
+        if(!this.cvDao.existsById(cvId)) {
+            return new ErrorResult("There is no such cv.");
+        }else if(!githubAddress.startsWith("https://github.com")){
+            if(!githubAddress.startsWith("github.com")){
+                return new ErrorResult("Not valid github address");
+            }
+        }
+
+        Cv cv=this.cvDao.getById(cvId);
+        cv.setGithubAddress(githubAddress);
+        this.cvDao.save(cv);
+        return new SuccessResult("Saved");
+    }
+
+    @Override
+    public Result deleteGithub(long cvId) {
+        if(!this.cvDao.existsById(cvId)){
+            return new ErrorResult("There is no such cv.");
+        }
+        Cv cv=this.cvDao.getById(cvId);
+        cv.setGithubAddress(null);
+        return new SuccessResult("Github address has been deleted");
+    }
+
+    @Override
+    public Result updateLinkedin(String linkedinLink, long cvId) {
+        if(!this.cvDao.existsById(cvId)){
+            return new ErrorResult("There is no such cv.");
+        }else if(!linkedinLink.startsWith("https://www.linkedin.com") &&
+                !linkedinLink.startsWith("www.linkedin.com") &&
+                !linkedinLink.startsWith("https://linkedin.com") &&
+                !linkedinLink.startsWith("linkedin.com")){
+            return new ErrorResult("Not valid address");
+        }
+        Cv cv=this.cvDao.getById(cvId);
+        cv.setLinkedinAddress(linkedinLink);
+        this.cvDao.save(cv);
+        return new SuccessResult("Saved");
+    }
+
+    @Override
+    public Result deleteLinkedin(long cvId) {
+        if(!this.cvDao.existsById(cvId)){
+            return new ErrorResult("Böyle bir cv yok");
+        }
+        Cv cv=this.cvDao.getById(cvId);
+        cv.setLinkedinAddress(null);
+        this.cvDao.save(cv);
+        return new SuccessResult("Linkedin address has been deleted");
+    }
+
+    @Override
+    public Result updateCoverLetter(String coverLetter, long cvId) {
+        if(!this.cvDao.existsById(cvId)){
+            return new ErrorResult("Böyle bir cv yok");
+        }
+        Cv cv=this.cvDao.getById(cvId);
+        cv.setCoverLetter(coverLetter);
+        this.cvDao.save(cv);
+        return new SuccessResult("Cover letter has been updated");
+    }
+
+
+    @Override
+    public Result deleteCoverLetter(long cvId) {
+        if(!this.cvDao.existsById(cvId)){
+            return new ErrorResult("Böyle bir cv yok");
+        }
+        Cv cv=this.cvDao.getById(cvId);
+        cv.setCoverLetter(null);
+        this.cvDao.save(cv);
+        return new SuccessResult("Cover letter has been deleted");
     }
 }

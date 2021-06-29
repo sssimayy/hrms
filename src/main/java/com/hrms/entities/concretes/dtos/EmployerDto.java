@@ -12,13 +12,13 @@ public class EmployerDto {
     @NotBlank
     private String companyName;
 
+    private String position;
+
     @NotNull
-    @NotBlank
     @NotBlank
     private String website;
 
     @NotNull
-
     @Email
     private String email;
 
@@ -33,4 +33,6 @@ public class EmployerDto {
     @NotNull
     @NotBlank
     private String passwordRepeat;
+
+    private boolean waitingUpdate;
 }

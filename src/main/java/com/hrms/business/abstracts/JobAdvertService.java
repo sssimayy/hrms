@@ -25,4 +25,8 @@ public interface JobAdvertService {
     DataResult<List<JobAdvert>> getAllActiveAdvertsById(int id);
 
     DataResult<List<JobAdvert>> findAllByIsActiveAndCompanyName(int id);
+
+    Result setPasssive(int jobAdId);
+
+    Result setActiveAndConfirm(int jobAdId,int staffId);
 }

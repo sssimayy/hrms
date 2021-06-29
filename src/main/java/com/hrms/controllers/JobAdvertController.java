@@ -6,6 +6,7 @@ import com.hrms.core.utilities.results.Result;
 import com.hrms.entities.concretes.JobAdvert;
 import com.hrms.entities.concretes.dtos.JobPostingSubmitDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -55,5 +56,23 @@ public class JobAdvertController {
     @GetMapping("/getEmployerJobAdvertisement")
     public DataResult<List<JobAdvert>> findAllByIsActiveAndCompanyName(int id) {
         return this.jobAdvertService.findAllByIsActiveAndCompanyName(id);
+    }
+
+    @PostMapping("/setPassive")
+    public ResponseEntity<?> setPasssive(@RequestParam int jobAdId) {
+        Result result = this.jobAdvertService.setPasssive(jobAdId);
+        if (result.isSuccess()) {
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.badRequest().body(result);
+    }
+
+    @PostMapping("/setActive")
+    public ResponseEntity<?> setActiveAndConfirm(@RequestParam int jobAdId, @RequestParam int staffId) {
+        Result result = this.jobAdvertService.setActiveAndConfirm(jobAdId, staffId);
+        if (!result.isSuccess()) {
+            ResponseEntity.badRequest().body(result);
+        }
+        return ResponseEntity.ok(result);
     }
 }

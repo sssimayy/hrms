@@ -89,6 +89,11 @@ public class CandidateManager implements CandidateService {
         return new SuccessDataResult<Candidate>(this.candidateDao.getById(id), "Data listed successfully");
     }
 
+    @Override
+    public DataResult<Candidate> getByEmail(String email) {
+        return new SuccessDataResult<Candidate>(this.candidateDao.findByEmail(email), "Listed successfully");
+    }
+
     public static boolean isValid(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                 "[a-zA-Z0-9_+&*-]+)*@" +

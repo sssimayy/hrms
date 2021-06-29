@@ -2,12 +2,17 @@ package com.hrms.business.concretes;
 
 import com.hrms.business.abstracts.*;
 import com.hrms.core.utilities.results.*;
+import com.hrms.dataAccess.abstracts.JobAdActivationDao;
 import com.hrms.dataAccess.abstracts.JobAdvertDao;
+import com.hrms.dataAccess.abstracts.StaffDao;
+import com.hrms.entities.concretes.JobAdActivation;
 import com.hrms.entities.concretes.JobAdvert;
 import com.hrms.entities.concretes.dtos.JobPostingSubmitDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -20,9 +25,11 @@ public class JobAdvertManager implements JobAdvertService {
     private WorkingPlaceService workingPlaceService;
     private WorkingTimeService workingTimeService;
     private EmployerService employerService;
+    private StaffDao staffDao;
+    private JobAdActivationDao jobAdActivationDao;
 
     @Autowired
-    public JobAdvertManager(JobAdvertDao jobAdvertDao, CityService cityService, JobPositionService jobPositionService, CandidateService candidateService, WorkingPlaceService workingPlaceService, WorkingTimeService workingTimeService, EmployerService employerService) {
+    public JobAdvertManager(JobAdvertDao jobAdvertDao, CityService cityService, JobPositionService jobPositionService, CandidateService candidateService, WorkingPlaceService workingPlaceService, WorkingTimeService workingTimeService, EmployerService employerService, StaffDao staffDao, JobAdActivationDao jobAdActivationDao) {
         this.jobAdvertDao = jobAdvertDao;
         this.cityService = cityService;
         this.jobPositionService = jobPositionService;
@@ -30,11 +37,17 @@ public class JobAdvertManager implements JobAdvertService {
         this.workingPlaceService = workingPlaceService;
         this.workingTimeService = workingTimeService;
         this.employerService = employerService;
+        this.staffDao = staffDao;
+        this.jobAdActivationDao = jobAdActivationDao;
     }
-
 
     @Override
     public Result add(JobPostingSubmitDto jobPostingSubmitDto) {
+        if (jobPostingSubmitDto.getSalaryMin() >= jobPostingSubmitDto.getSalaryMax()) {
+            return new ErrorResult("Minumum maaş maksimum maaşa eşit yada büyük olamaz");
+        } else if (jobPostingSubmitDto.getOpenPositionCount() < 1) {
+            return new ErrorResult("Open position count 1 den küçük olamaz.");
+        }
         JobAdvert jobAdvert = new JobAdvert();
 
         jobAdvert.setDescription(jobPostingSubmitDto.getDescription());
@@ -108,18 +121,42 @@ public class JobAdvertManager implements JobAdvertService {
         }
     }
 
-    private boolean checkNullArea(JobAdvert jobAdvert) {
-        if (jobAdvert.getJobPosition() != null && jobAdvert.getDescription() != null && jobAdvert.getCity() != null && jobAdvert.getOpenPositionCount() != 0) {
-            return true;
+    @Override
+    public Result setPasssive(int jobAdId) {
+        try {
+            JobAdvert jobAd=this.jobAdvertDao.getById(jobAdId);
+            jobAd.setActive(false);
+            jobAdvertDao.save(jobAd);
+            return new SuccessResult("İş ilanı pasifleştirildi");
+        }catch (EntityNotFoundException exception){
+            return new ErrorResult("İş ilanı bulunamadı");
         }
-        return false;
     }
 
-    private boolean salaryCheck(JobAdvert jobAdvert) {
-        if (jobAdvert.getSalaryMin() > jobAdvert.getSalaryMax()) {
-            return false;
-        } else
-            return true;
+    @Override
+    public Result setActiveAndConfirm(int jobAdId, int staffId) {
+        try{
+            if(!this.staffDao.existsById(staffId)){
+                return new ErrorResult("Böyle bir personel yok");
+            }
+            JobAdActivation jobAdActivation=this.jobAdActivationDao.getById(jobAdId);
+            jobAdActivation.setConfirmDate(LocalDate.now());
+            jobAdActivation.setConfirm(true);
+            jobAdActivation.setStaffId(staffId);
+            this.jobAdActivationDao.save(jobAdActivation);
+
+            JobAdvert jobAd=this.jobAdvertDao.getById(jobAdId);
+            jobAd.setActive(true);
+            jobAd.setConfirmed(true);
+            this.jobAdvertDao.save(jobAd);
+            return new SuccessResult("İş ilanı aktifleştirildi");
+        }catch (EntityNotFoundException exception){
+            return new ErrorResult("İş ilanı bulunamadı");
+        }
+
     }
+
+
+
 }
 

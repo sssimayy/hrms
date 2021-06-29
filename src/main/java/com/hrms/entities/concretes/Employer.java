@@ -28,6 +28,9 @@ public class Employer {
     @Column(name = "company_name")
     private String companyName;
 
+    @Column(name = "position")
+    private String position;
+
     @Column(name = "web_site")
     @NotBlank
     private String website;
@@ -43,6 +46,9 @@ public class Employer {
     @Column(name = "password")
     @NotBlank
     private String password;
+
+    @Column(name = "waiting_update")
+    private boolean waitingUpdate;
 
     @OneToMany(mappedBy = "employer")
     private List<JobAdvert> jobAdvert;

@@ -68,6 +68,9 @@ public class JobAdvert {
     private WorkingTime workingTime;
 
     @ManyToOne
+    @JoinColumn(name = "employer_id")
     private Employer employer;
+
+    private boolean confirmed;
 
 }

@@ -19,10 +19,6 @@ public class Cv {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String firmName;
-
-    private String position;
-
     private Date experienceDate;
 
     private String githubAddress;
