@@ -115,7 +115,7 @@ public class JobAdvertManager implements JobAdvertService {
     @Override
     public DataResult<List<JobAdvert>> findAllByIsActiveAndCompanyName(int id) {
         if (!this.jobAdvertDao.existsById(id)) {
-            return new ErrorDataResult<List<JobAdvert>>("İş veren bulunamadı");
+            return new ErrorDataResult<List<JobAdvert>>("There is no such an employer.");
         } else {
             return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getEmployersActiveAdvert(id), "Başarılı");
         }
@@ -127,9 +127,9 @@ public class JobAdvertManager implements JobAdvertService {
             JobAdvert jobAd=this.jobAdvertDao.getById(jobAdId);
             jobAd.setActive(false);
             jobAdvertDao.save(jobAd);
-            return new SuccessResult("İş ilanı pasifleştirildi");
+            return new SuccessResult("Advert has been disactivated");
         }catch (EntityNotFoundException exception){
-            return new ErrorResult("İş ilanı bulunamadı");
+            return new ErrorResult("There is no such an advert");
         }
     }
 
@@ -137,7 +137,7 @@ public class JobAdvertManager implements JobAdvertService {
     public Result setActiveAndConfirm(int jobAdId, int staffId) {
         try{
             if(!this.staffDao.existsById(staffId)){
-                return new ErrorResult("Böyle bir personel yok");
+                return new ErrorResult("There is no such a staff.");
             }
             JobAdActivation jobAdActivation=this.jobAdActivationDao.getById(jobAdId);
             jobAdActivation.setConfirmDate(LocalDate.now());
@@ -149,9 +149,9 @@ public class JobAdvertManager implements JobAdvertService {
             jobAd.setActive(true);
             jobAd.setConfirmed(true);
             this.jobAdvertDao.save(jobAd);
-            return new SuccessResult("İş ilanı aktifleştirildi");
+            return new SuccessResult("Advert has been activated");
         }catch (EntityNotFoundException exception){
-            return new ErrorResult("İş ilanı bulunamadı");
+            return new ErrorResult("There is no such an advert");
         }
 
     }
